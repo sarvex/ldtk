@@ -257,8 +257,7 @@ class FieldDefinition:
         return FieldDefinition(type, accept_file_types, allowed_refs, allowed_ref_tags, allow_out_of_level_ref, array_max_length, array_min_length, auto_chain_ref, can_be_null, default_override, editor_always_show, editor_cut_long_values, editor_display_mode, editor_display_pos, editor_text_prefix, editor_text_suffix, identifier, is_array, max, min, regex, symmetrical_ref, text_language_mode, tileset_uid, field_definition_type, uid, use_for_smart_color)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__type"] = from_str(self.type)
+        result: dict = {"__type": from_str(self.type)}
         result["acceptFileTypes"] = from_union([from_none, lambda x: from_list(from_str, x)], self.accept_file_types)
         result["allowedRefs"] = to_enum(AllowedRefs, self.allowed_refs)
         result["allowedRefTags"] = from_list(from_str, self.allowed_ref_tags)
@@ -343,8 +342,7 @@ class TilesetRectangle:
         return TilesetRectangle(h, tileset_uid, w, x, y)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["h"] = from_int(self.h)
+        result: dict = {"h": from_int(self.h)}
         result["tilesetUid"] = from_int(self.tileset_uid)
         result["w"] = from_int(self.w)
         result["x"] = from_int(self.x)
@@ -488,8 +486,7 @@ class EntityDefinition:
         return EntityDefinition(color, field_defs, fill_opacity, height, hollow, identifier, keep_aspect_ratio, limit_behavior, limit_scope, line_opacity, max_count, nine_slice_borders, pivot_x, pivot_y, render_mode, resizable_x, resizable_y, show_name, tags, tile_id, tile_opacity, tile_rect, tile_render_mode, tileset_id, uid, width)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["color"] = from_str(self.color)
+        result: dict = {"color": from_str(self.color)}
         result["fieldDefs"] = from_list(lambda x: to_class(FieldDefinition, x), self.field_defs)
         result["fillOpacity"] = to_float(self.fill_opacity)
         result["height"] = from_int(self.height)
@@ -546,8 +543,11 @@ class EnumValueDefinition:
         return EnumValueDefinition(tile_src_rect, color, id, tile_id)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__tileSrcRect"] = from_union([from_none, lambda x: from_list(from_int, x)], self.tile_src_rect)
+        result: dict = {
+            "__tileSrcRect": from_union(
+                [from_none, lambda x: from_list(from_int, x)], self.tile_src_rect
+            )
+        }
         result["color"] = from_int(self.color)
         result["id"] = from_str(self.id)
         result["tileId"] = from_union([from_none, from_int], self.tile_id)
@@ -591,8 +591,11 @@ class EnumDefinition:
         return EnumDefinition(external_file_checksum, external_rel_path, icon_tileset_uid, identifier, tags, uid, values)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["externalFileChecksum"] = from_union([from_none, from_str], self.external_file_checksum)
+        result: dict = {
+            "externalFileChecksum": from_union(
+                [from_none, from_str], self.external_file_checksum
+            )
+        }
         result["externalRelPath"] = from_union([from_none, from_str], self.external_rel_path)
         result["iconTilesetUid"] = from_union([from_none, from_int], self.icon_tileset_uid)
         result["identifier"] = from_str(self.identifier)
@@ -716,8 +719,7 @@ class AutoLayerRuleDefinition:
         return AutoLayerRuleDefinition(active, break_on_match, chance, checker, flip_x, flip_y, out_of_bounds_value, pattern, perlin_active, perlin_octaves, perlin_scale, perlin_seed, pivot_x, pivot_y, size, tile_ids, tile_mode, uid, x_modulo, x_offset, y_modulo, y_offset)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_bool(self.active)
+        result: dict = {"active": from_bool(self.active)}
         result["breakOnMatch"] = from_bool(self.break_on_match)
         result["chance"] = to_float(self.chance)
         result["checker"] = to_enum(Checker, self.checker)
@@ -771,8 +773,7 @@ class AutoLayerRuleGroup:
         return AutoLayerRuleGroup(active, collapsed, is_optional, name, rules, uid)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_bool(self.active)
+        result: dict = {"active": from_bool(self.active)}
         result["collapsed"] = from_union([from_none, from_bool], self.collapsed)
         result["isOptional"] = from_bool(self.is_optional)
         result["name"] = from_str(self.name)
@@ -803,8 +804,7 @@ class IntGridValueDefinition:
         return IntGridValueDefinition(color, identifier, value)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["color"] = from_str(self.color)
+        result: dict = {"color": from_str(self.color)}
         result["identifier"] = from_union([from_none, from_str], self.identifier)
         result["value"] = from_int(self.value)
         return result
@@ -951,8 +951,7 @@ class LayerDefinition:
         return LayerDefinition(type, auto_rule_groups, auto_source_layer_def_uid, auto_tileset_def_uid, display_opacity, excluded_tags, grid_size, guide_grid_hei, guide_grid_wid, hide_fields_when_inactive, hide_in_list, identifier, inactive_opacity, int_grid_values, parallax_factor_x, parallax_factor_y, parallax_scaling, px_offset_x, px_offset_y, required_tags, tile_pivot_x, tile_pivot_y, tileset_def_uid, layer_definition_type, uid)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__type"] = from_str(self.type)
+        result: dict = {"__type": from_str(self.type)}
         result["autoRuleGroups"] = from_list(lambda x: to_class(AutoLayerRuleGroup, x), self.auto_rule_groups)
         result["autoSourceLayerDefUid"] = from_union([from_none, from_int], self.auto_source_layer_def_uid)
         result["autoTilesetDefUid"] = from_union([from_none, from_int], self.auto_tileset_def_uid)
@@ -997,8 +996,7 @@ class TileCustomMetadata:
         return TileCustomMetadata(data, tile_id)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = from_str(self.data)
+        result: dict = {"data": from_str(self.data)}
         result["tileId"] = from_int(self.tile_id)
         return result
 
@@ -1024,8 +1022,7 @@ class EnumTagValue:
         return EnumTagValue(enum_value_id, tile_ids)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["enumValueId"] = from_str(self.enum_value_id)
+        result: dict = {"enumValueId": from_str(self.enum_value_id)}
         result["tileIds"] = from_list(from_int, self.tile_ids)
         return result
 
@@ -1117,8 +1114,7 @@ class TilesetDefinition:
         return TilesetDefinition(c_hei, c_wid, cached_pixel_data, custom_data, embed_atlas, enum_tags, identifier, padding, px_hei, px_wid, rel_path, saved_selections, spacing, tags, tags_source_enum_uid, tile_grid_size, uid)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__cHei"] = from_int(self.c_hei)
+        result: dict = {"__cHei": from_int(self.c_hei)}
         result["__cWid"] = from_int(self.c_wid)
         result["cachedPixelData"] = from_union([from_none, lambda x: from_dict(lambda x: x, x)], self.cached_pixel_data)
         result["customData"] = from_list(lambda x: to_class(TileCustomMetadata, x), self.custom_data)
@@ -1183,8 +1179,11 @@ class Definitions:
         return Definitions(entities, enums, external_enums, layers, level_fields, tilesets)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["entities"] = from_list(lambda x: to_class(EntityDefinition, x), self.entities)
+        result: dict = {
+            "entities": from_list(
+                lambda x: to_class(EntityDefinition, x), self.entities
+            )
+        }
         result["enums"] = from_list(lambda x: to_class(EnumDefinition, x), self.enums)
         result["externalEnums"] = from_list(lambda x: to_class(EnumDefinition, x), self.external_enums)
         result["layers"] = from_list(lambda x: to_class(LayerDefinition, x), self.layers)
@@ -1250,8 +1249,7 @@ class FieldInstance:
         return FieldInstance(identifier, tile, type, value, def_uid, real_editor_values)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__identifier"] = from_str(self.identifier)
+        result: dict = {"__identifier": from_str(self.identifier)}
         result["__tile"] = from_union([from_none, lambda x: to_class(TilesetRectangle, x)], self.tile)
         result["__type"] = from_str(self.type)
         result["__value"] = self.value
@@ -1328,8 +1326,7 @@ class EntityInstance:
         return EntityInstance(grid, identifier, pivot, smart_color, tags, tile, def_uid, field_instances, height, iid, px, width)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__grid"] = from_list(from_int, self.grid)
+        result: dict = {"__grid": from_list(from_int, self.grid)}
         result["__identifier"] = from_str(self.identifier)
         result["__pivot"] = from_list(to_float, self.pivot)
         result["__smartColor"] = from_str(self.smart_color)
@@ -1371,8 +1368,7 @@ class FieldInstanceEntityReference:
         return FieldInstanceEntityReference(entity_iid, layer_iid, level_iid, world_iid)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["entityIid"] = from_str(self.entity_iid)
+        result: dict = {"entityIid": from_str(self.entity_iid)}
         result["layerIid"] = from_str(self.layer_iid)
         result["levelIid"] = from_str(self.level_iid)
         result["worldIid"] = from_str(self.world_iid)
@@ -1398,8 +1394,7 @@ class FieldInstanceGridPoint:
         return FieldInstanceGridPoint(cx, cy)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["cx"] = from_int(self.cx)
+        result: dict = {"cx": from_int(self.cx)}
         result["cy"] = from_int(self.cy)
         return result
 
@@ -1423,8 +1418,7 @@ class IntGridValueInstance:
         return IntGridValueInstance(coord_id, v)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["coordId"] = from_int(self.coord_id)
+        result: dict = {"coordId": from_int(self.coord_id)}
         result["v"] = from_int(self.v)
         return result
 
@@ -1467,8 +1461,7 @@ class TileInstance:
         return TileInstance(d, f, px, src, t)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["d"] = from_list(from_int, self.d)
+        result: dict = {"d": from_list(from_int, self.d)}
         result["f"] = from_int(self.f)
         result["px"] = from_list(from_int, self.px)
         result["src"] = from_list(from_int, self.src)
@@ -1596,8 +1589,7 @@ class LayerInstance:
         return LayerInstance(c_hei, c_wid, grid_size, identifier, opacity, px_total_offset_x, px_total_offset_y, tileset_def_uid, tileset_rel_path, type, auto_layer_tiles, entity_instances, grid_tiles, iid, int_grid, int_grid_csv, layer_def_uid, level_id, optional_rules, override_tileset_uid, px_offset_x, px_offset_y, seed, visible)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__cHei"] = from_int(self.c_hei)
+        result: dict = {"__cHei": from_int(self.c_hei)}
         result["__cWid"] = from_int(self.c_wid)
         result["__gridSize"] = from_int(self.grid_size)
         result["__identifier"] = from_str(self.identifier)
@@ -1654,8 +1646,7 @@ class LevelBackgroundPosition:
         return LevelBackgroundPosition(crop_rect, scale, top_left_px)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["cropRect"] = from_list(to_float, self.crop_rect)
+        result: dict = {"cropRect": from_list(to_float, self.crop_rect)}
         result["scale"] = from_list(to_float, self.scale)
         result["topLeftPx"] = from_list(from_int, self.top_left_px)
         return result
@@ -1695,8 +1686,7 @@ class NeighbourLevel:
         return NeighbourLevel(dir, level_iid, level_uid)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["dir"] = from_str(self.dir)
+        result: dict = {"dir": from_str(self.dir)}
         result["levelIid"] = from_str(self.level_iid)
         result["levelUid"] = from_union([from_none, from_int], self.level_uid)
         return result
@@ -1834,8 +1824,7 @@ class Level:
         return Level(bg_color, bg_pos, neighbours, smart_color, level_bg_color, bg_pivot_x, bg_pivot_y, level_bg_pos, bg_rel_path, external_rel_path, field_instances, identifier, iid, layer_instances, px_hei, px_wid, uid, use_auto_identifier, world_depth, world_x, world_y)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["__bgColor"] = from_str(self.bg_color)
+        result: dict = {"__bgColor": from_str(self.bg_color)}
         result["__bgPos"] = from_union([from_none, lambda x: to_class(LevelBackgroundPosition, x)], self.bg_pos)
         result["__neighbours"] = from_list(lambda x: to_class(NeighbourLevel, x), self.neighbours)
         result["__smartColor"] = from_str(self.smart_color)
@@ -1917,8 +1906,7 @@ class World:
         return World(default_level_height, default_level_width, identifier, iid, levels, world_grid_height, world_grid_width, world_layout)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["defaultLevelHeight"] = from_int(self.default_level_height)
+        result: dict = {"defaultLevelHeight": from_int(self.default_level_height)}
         result["defaultLevelWidth"] = from_int(self.default_level_width)
         result["identifier"] = from_str(self.identifier)
         result["iid"] = from_str(self.iid)
@@ -2015,8 +2003,12 @@ class ForcedRefs:
         return ForcedRefs(auto_layer_rule_group, auto_rule_def, definitions, entity_def, entity_instance, entity_reference_infos, enum_def, enum_def_values, enum_tag_value, field_def, field_instance, grid_point, int_grid_value_def, int_grid_value_instance, layer_def, layer_instance, level, level_bg_pos_infos, neighbour_level, tile, tile_custom_metadata, tileset_def, tileset_rect, world)
 
     def to_dict(self) -> dict:
-        result: dict = {}
-        result["AutoLayerRuleGroup"] = from_union([lambda x: to_class(AutoLayerRuleGroup, x), from_none], self.auto_layer_rule_group)
+        result: dict = {
+            "AutoLayerRuleGroup": from_union(
+                [lambda x: to_class(AutoLayerRuleGroup, x), from_none],
+                self.auto_layer_rule_group,
+            )
+        }
         result["AutoRuleDef"] = from_union([lambda x: to_class(AutoLayerRuleDefinition, x), from_none], self.auto_rule_def)
         result["Definitions"] = from_union([lambda x: to_class(Definitions, x), from_none], self.definitions)
         result["EntityDef"] = from_union([lambda x: to_class(EntityDefinition, x), from_none], self.entity_def)
